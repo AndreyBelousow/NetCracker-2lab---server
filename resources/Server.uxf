@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>497</x>
+      <y>231</y>
+      <w>231</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Server
+--
+-ConnectedUsers: List&lt;UserController&gt; 
+-saveLoadController: SaveLoadController
+-registeredUsers: RegisteredUsersData
+--
++connectUser()
++disconnectUser()
++synchronizeUser()
++registerNewUser()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>462</x>
+      <y>77</y>
+      <w>140</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>ConnectionProcessor
+--
+-connections: List&lt;Thread&gt; 
+-server: Server</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>777</x>
+      <y>308</y>
+      <w>140</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>UserController
+--
+-id: String
+-journals: List&lt;TaskJournal&gt; 
+--
++authorisation()
++synchronizeJournal()
++disconnect()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>721</x>
+      <y>266</y>
+      <w>140</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;180.0;10.0;180.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>525</x>
+      <y>119</y>
+      <w>21</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>763</x>
+      <y>161</y>
+      <w>231</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>/&lt;interface&gt;/
+/SaveLoadController/
+--
++loadJournal(String filename)
++saveJournal(String filename, TaskJournal journal)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>721</x>
+      <y>210</y>
+      <w>140</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;180.0;70.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>350</x>
+      <y>35</y>
+      <w>182</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Принимает и передает сообщения
+Хранит список текущих соединений
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>448</x>
+      <y>350</y>
+      <w>238</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>Управляет регистрацией и авторизацией
+Передает сообщения конкретным пользователям
+Хранит список подключенных в данный момент
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>742</x>
+      <y>112</y>
+      <w>182</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Сохраняет и загружает журналы
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>728</x>
+      <y>406</y>
+      <w>182</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Хранит список журналов
+Управляет их синхронизацией
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>987</x>
+      <y>175</y>
+      <w>56</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>924</x>
+      <y>252</y>
+      <w>140</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>BasicSaveLoadController</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>189</x>
+      <y>350</y>
+      <w>189</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>/&lt;interface&gt;/
+/RegisteredUsersData/
+--
++add(String ID, String password)
++delete(String ID, String password)
++checkFor(String ID)
++checkPass(String ID, String password)
+-loadUsersData()
+-saveUsersData()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>182</x>
+      <y>504</y>
+      <w>161</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>BasicRegisterUsersData</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>259</x>
+      <y>455</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>259</x>
+      <y>273</y>
+      <w>252</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>340.0;10.0;10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>14</x>
+      <y>280</y>
+      <w>238</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Управляет базой пользователей
+Добавлением и удалением
+Проверкой на наличие пользователя в базе
+Проверкой пароля
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
