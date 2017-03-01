@@ -7,7 +7,9 @@ import com.netcracker.practise.eventsplanner.controllers.saveLoad.SaveLoadContro
 import java.util.ArrayList;
 
 /**
- * Created by 1 on 12.02.2017.
+ * Provides a main controller's function
+ * Redirects calls to other controllers
+ * @author A.Belousow
  */
 public class Server {
 

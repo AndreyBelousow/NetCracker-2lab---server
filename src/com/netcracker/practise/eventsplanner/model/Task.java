@@ -1,5 +1,4 @@
 package com.netcracker.practise.eventsplanner.model;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -7,7 +6,7 @@ import java.util.List;
 
 /**
  *
- * @author Андрей Белоусов
+ * @author A.Belousow
  */
 
 /**Task is just a data-keeping structure*/

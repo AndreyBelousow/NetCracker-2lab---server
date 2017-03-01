@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author Артем Привалов
+ * @author A.Privalov
  */
 
 public class TaskJournal implements Serializable,Closeable{
