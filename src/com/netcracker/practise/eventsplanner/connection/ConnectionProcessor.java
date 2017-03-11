@@ -7,14 +7,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Provides basic multithread server logic:
+ * Provides basic multithread serverLogicProcessor logic:
  * client connection establishment, threading;
- * sends client's messages to {@link Server}
+ * sends client's messages to {@link ServerLogicProcessor}
  * @author A.Belousow
  * */
 public class ConnectionProcessor {
 
-    private Server server;
+    private static ServerLogicProcessor serverLogicProcessor;
 
     private static int threadPoolSize = 10;
 
@@ -35,17 +35,19 @@ public class ConnectionProcessor {
         }
 
         public void run() {
-
+            serverLogicProcessor.onConnect(input, output);
         }
     }
 
     public static void main(String[] args) throws IOException {
 
+        serverLogicProcessor = new ServerLogicProcessor();
+
         ServerSocket socket = new ServerSocket(port);
 
         ExecutorService service = Executors.newFixedThreadPool(threadPoolSize);
 
-        System.err.println("I am server, and i am waiting...");
+        System.err.println("Server is ready...");
 
         while (true) {
             Socket s = socket.accept();

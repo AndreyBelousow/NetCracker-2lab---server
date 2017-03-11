@@ -1,9 +1,12 @@
 package com.netcracker.practise.eventsplanner.dto;
 
+import java.io.Serializable;
+
 /**
  * @author A.Belousow
  */
-public class UserDTO {
+public class UserDTO implements Serializable{
+
     private String username;
     private  String password;
     private  Integer userId;

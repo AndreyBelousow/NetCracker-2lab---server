@@ -11,28 +11,28 @@ import java.util.List;
  */
 public class DTOmaker {
 
-    public UserDTO getUserDTO(User user){
+    public UserDTO getDTO(User user){
 
-        JournalDTO jdto = getJournalDTO(user.getUsersJournal());
+        JournalDTO jdto = getDTO(user.getUsersJournal());
 
         return new UserDTO(user.getUsername(), user.getPassword(), user.getUserId(), jdto);
     }
 
-    public JournalDTO getJournalDTO(TaskJournal journal){
+    public JournalDTO getDTO(TaskJournal journal){
 
         List<TaskDTO> taskDTOList = null;
 
         List<Task> taskList = journal.getTasks();
 
         for(int i=0; i<taskList.size(); i++){
-            TaskDTO tdto = getTaskDTO(taskList.get(i));
+            TaskDTO tdto = getDTO(taskList.get(i));
             taskDTOList.add(i,tdto);
         }
 
         return new JournalDTO(taskDTOList);
     }
 
-    public TaskDTO getTaskDTO(Task task){
+    public TaskDTO getDTO(Task task){
         return new TaskDTO(task.getName(), task.getDate(), task.getDescription(), task.getContacts());
     }
 }
