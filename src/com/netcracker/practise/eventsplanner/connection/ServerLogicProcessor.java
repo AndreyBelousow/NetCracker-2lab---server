@@ -13,41 +13,77 @@ import java.io.*;
  */
 public class ServerLogicProcessor {
 
-    private DTOmaker dtoMaker = new DTOmaker();
-
+    private DTOProcessor dtoProcessor = new DTOProcessor();
     private UserDAO userDAO = new UserDaoStub();
-    private JournalDAO journalDAO = new JournalDaoStub();
-    private TaskDAO taskDAO = new TaskDaoStub();
 
-    //TODO разделение на отдельные методы
-    public void onConnect(InputStream input, OutputStream output){
+    public void onConnect(InputStream input, OutputStream output) throws IOException {
 
-        BufferedReader stringIn = new BufferedReader(new InputStreamReader(input));
-        PrintWriter stringOut = new PrintWriter(output);
+        ObjectInputStream objectIn = new ObjectInputStream(input);
+        ObjectOutputStream objectOut = new ObjectOutputStream(output);
 
-        ObjectInputStream objectIn = null;
-        ObjectOutputStream objectOut = null;
-        try {
-            objectIn = new ObjectInputStream(input);
-            objectOut = new ObjectOutputStream(output);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         //Сообщаем клиенту о присоединении
-        stringOut.println("connect");
+        objectOut.writeObject(Messages.connected);
 
-        //Ждем UserDTO с данными для авторизации
-        UserDTO authData = null;
-        try {
-            authData = (UserDTO) objectIn.readObject();
+        User user = null;
+
+        //Авторизация
+        while (true) {
+            //Ждем UserDTO с данными для авторизации
+            UserDTO authData = null;
+            try {
+                authData = (UserDTO) objectIn.readObject();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            //Проверяем логин - пароль
+            user = tryLogIn(authData);
+            if (user == null) {
+                objectOut.writeObject(Messages.failed);
+                continue;
+            } else {
+                objectOut.writeObject(Messages.success);
+                break;
+            }
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+
+        //Отправляем клиенту его данные
+        objectOut.writeObject(dtoProcessor.getDTO(user));
+
+        //Ждем сообщения от клиента
+        while(true){
+            String message = null;
+            try {
+                message = (String)objectIn.readObject();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            //Обновляем его журнал или ждем сообщения о выходе
+            switch (message){
+                case (Messages.update):
+                    UserDTO dto = null;
+                    try {
+                        dto = (UserDTO)objectIn.readObject();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    user = dtoProcessor.getObject(dto);
+                    updateUser(user);
+                    break;
+                case (Messages.quit) :
+                    updateUser(user);
+                    return;
+            }
         }
+    }
 
-        User user = userDAO.getUser(authData.getUsername(), authData.getPassword());
+    //_________________________________________________________________________
 
+    private User tryLogIn(UserDTO data) {
+        return userDAO.getUser(data.getUsername(), data.getPassword());
+    }
+
+    private void updateUser(User user){
+        userDAO.update(user.getUsername(), user);
     }
 }

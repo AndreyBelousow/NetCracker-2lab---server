@@ -23,7 +23,7 @@ public class UserDTO implements Serializable{
         return userId;
     }
 
-    public JournalDTO getUsersJournal() {
+    public JournalDTO getJournalDTO() {
         return usersJournal;
     }
 
