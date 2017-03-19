@@ -1,6 +1,6 @@
 package com.netcracker.practise.eventsplanner;
 
-import com.netcracker.practise.eventsplanner.connection.ConnectionProcessor;
+import com.netcracker.practise.eventsplanner.controller.connection.ConnectionProcessor;
 
 import java.io.IOException;
 
